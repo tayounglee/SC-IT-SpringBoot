@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+
+</style>
+<script>
+
+function check(){
+	let num1 = document.getElementById('num1');
+	let num2 = document.getElementById('num2');
+	
+	if(num1.value == '' || isNaN(num1.value)){
+		alert('정수를 입력하세요.');
+		num1.focus();
+		num1.select();
+		return false;
+	}
+	if(num2.value == '' || isNaN(num2.value)){
+		alert('정수를 입력하세요.');
+		num2.focus();
+		num2.select();
+		return false;
+	}
+	
+}
+</script>
+</head>
+<body>
+	<div id="calcForm">
+	<h2>계산하기</h2>
+	<form action="calc1" method="post" onsubmit="return check()">
+		<input type="text" name="num1" id="num1">
+		<select name="op" id="op">
+			<option value="+">+</option>
+			<option value="-">-</option>
+			<option value="*">*</option>
+			<option value="/">/</option>
+		</select>
+		<input type="text" name="num2" id="num2">
+		<input type="submit" value="계산">
+	</form>
+	</div>
+</body>
+</html>

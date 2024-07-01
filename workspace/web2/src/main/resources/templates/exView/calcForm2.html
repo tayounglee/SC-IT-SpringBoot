@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<style>
+
+</style>
+<script>
+$(document).ready(function(){
+	//id가 formButton인 객체를 클릭하면 check함수 실행
+	$('#formButton').on('click', check);
+});
+function check(){
+	
+	if($('#num1').val() == '' || isNaN($('#num1').val())){
+		alert('정수를 입력하세요.');
+		$('#num1').focus();
+		$('#num1').select();
+		return;
+	}
+	if($('#num2').val() == '' || isNaN($('#num2').val())){
+		alert('정수를 입력하세요.');
+		$('#num2').focus();
+		$('#num2').select();
+		return;
+	}
+	$('#form').submit();
+}
+</script>
+</head>
+<body>
+	<div id="calcForm">
+	<h2>계산하기</h2>
+	<form id="form" action="calc2" method="post">
+		<input type="text" name="num1" id="num1">
+		<select name="op" id="op">
+			<option value="+">+</option>
+			<option value="-">-</option>
+			<option value="*">*</option>
+			<option value="/">/</option>
+		</select>
+		<input type="text" name="num2" id="num2">
+		<input type="button" id="formButton" value="계산">
+	</form>
+	</div>
+</body>
+</html>

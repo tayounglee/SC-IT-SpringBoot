@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function check(){
+   let id = document.getElementById('id');
+   
+   if (id.value.length <3){
+      alert('ID를 입력하세요.')
+      id.focus();
+      id.select();
+      return false;
+   }
+   
+   if (pw.value.length == ''){
+      alert('PW를 입력하세요.')
+      pw.focus();
+      pw.select();
+      return false;
+   }
+
+   return true;
+}
+</script>
+
+</head>
+<body>
+   <h1>[ Post method로 데이터 전송하기 ]</h1>
+   <!-- http://localhost:8888/param/input1로 전송 -->
+   <form action="input2" method="post" onsubmit="return check()">
+      ID <input type="text" name="id"><br>
+      PW <input type="password" name="pw"><br>
+      이름 <input type="text" name="name"><br>
+      전화 <input type="text" name="phone"><br>
+         <input type="radio" name="com" value="kt" checked>KT
+         <input type="radio" name="com" value="sk">SK
+         <input type="radio" name="com" value="lg">LGT
+      <input type="submit" value="전송"><br>
+   </form>
+</body>
+</html>
