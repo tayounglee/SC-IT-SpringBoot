@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>값 삭제</title>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function(){
+	localStorage.removeItem('code');
+    sessionStorage.removeItem('code');
+    
+});
+</script>
+</head>
+<body>
+	<h1>삭제되었습니다.</h1>
+	<!-- 
+		jquery파일을 불러온다.
+		페이지가 로드되면 바로 실행되는 코드 작성
+		로컬스토리지와 세션스토리지 양쪽의 이름이 "code"인 값을 삭제한다.
+	 -->
+</body>
+</html>

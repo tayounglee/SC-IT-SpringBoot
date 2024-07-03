@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>값 저장</title>
+<script>
+function save(){
+	let localInputValue = document.getElementById('localInput').value;
+	let sessionInputValue = document.getElementById('sessionInput').value;
+	console.log(localInputValue, sessionInputValue);
+	
+	localStorage.setItem('code', localInputValue);
+	sessionStorage.setItem('code', localInputValue);
+}
+</script>
+</head>
+<body>
+	<h1>localStorage와 sessionStorage에 저장</h1>
+	<p>localStorage <input type="text" id="localInput"></p>
+	<p>sessionStorage <input type="text" id="sessionInput"></p>
+	<p><input type="button" onclick="save()" value="저장"></p>
+</body>
+</html>

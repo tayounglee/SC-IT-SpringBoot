@@ -87,4 +87,19 @@ public class SessionController {
 		}
 		return "ssView/loginTest";
 	}
+	
+	@GetMapping("nickname")
+	public String nickname(HttpSession session) {
+		return "ssView/nickname";
+	}
+	
+	@PostMapping("nickname")
+	public String nicknameProcess(
+			HttpSession session,
+			@RequestParam("id") String id) {
+		
+			session.setAttribute("id", id);
+			return "redirect:/ex/count";
+		
+	}
 }

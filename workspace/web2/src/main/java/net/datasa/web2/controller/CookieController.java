@@ -1,7 +1,5 @@
 package net.datasa.web2.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;

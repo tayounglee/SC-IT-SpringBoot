@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>값 읽기</title>
+<script>
+window.onload = function() {
+	//code로 저장한 이름을 가져옴
+	let localCode = localStorage.getItem('code');
+	let sessionCode = sessionStorage.getItem('code');
+	
+	let div1 = document.getElementById('div1');
+	let div2 = document.getElementById('div2');
+	
+	div1.innerHTML = localCode;
+	div2.innerHTML = sessionCode;
+}
+</script>
+</head>
+<body>
+	<h1>값 읽기</h1>
+	<div id="div1"></div>
+	<div id="div2"></div>
+</body>
+</html>

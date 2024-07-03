@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>thymeleaf2</title>
+</head>
+<body>
+	<h1>[ Thymeleaf 문법 2]</h1>
+	
+	<h3>리스트와 맵</h3>
+	<div>[[${list}]]</div>
+	<div>[[${map}]]</div>
+	<div>[[${personlist}]]</div>
+	
+	<p th:text="${#lists.size(list)}"></p>
+	<p th:text="${#lists.contains(list, 'aaaa')}"></p>
+	<p th:text="${#maps.size(map)}"></p>
+	<p th:text="${#maps.containsKey(map, 'price')}"></p>
+</body>
+</html>

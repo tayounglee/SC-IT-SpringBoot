@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>thymeleaf1</title>
+<script src="/js/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+	<h1>[ Thymeleaf 문법 1]</h1>
+	
+	<h3>값 출력</h3>
+	<p>[[${str}]]</p>
+	<p th:text="${str}">임시문자열</p>
+	<p th:text="${num}">000</p>
+	<p>이름 :<span th:text="${person.name}">홍길동</span></p>
+	<p th:text="${tag}"></p>
+	<p th:utext="${tag}"></p>
+	
+	<h3>주석</h3>
+	<!--  HTML주석 -->
+	<script>
+		//Javascript주석
+		/* Javascript주석 */
+	</script>
+	<!-- /* 타임리프 주석 */ -->
+	
+	<h3>연산자</h3>
+	<p th:text="${num + 1}">000</p>
+	
+	<p>비교연산자 : == != < > <= >=</p>
+	<p>비교연산자 : eq ne lt gt le ge</p>
+	<p th:text="${num > 10}"></p>
+	<p th:text="${num gt 10}"></p>
+	
+	<p>논리연산자 : and or not</p>
+	<p th:text="${num gt 10 and num lt 50}"></p>
+	<p th:text="${num%3 eq 0}"></p>
+	<p th:text="${num}"></p>
+	
+	
+	<h3>경로 생성과 하이퍼링크</h3><p><a href="https://google.com">구글 https://google.com</a></p>
+	<p><a href="../ex/calc1">계산기</a></p>
+	<p><a href="ex/calc1">계산기</a></p>
+
+	<p><a th:text="${url}" th:href="${url}"></a></p>
+	<p><a th:href="@{/ex/calc1}">계산기</a></p>
+	<p><img th:src="@{/images/ccc.jpg}"></p>
+	
+	<h3>객체 출력</h3>
+	<p th:text="${person}"></p>
+	<p th:text="${person.name}"></p>
+	
+	<div th:object="${person}">
+		<p th:text="*{name}"></p>
+		<p th:text="*{age}"></p>
+		<p th:text="*{phone}"></p>
+	</div>
+	
+	<h3>포매팅</h3>
+	<p th:text="${n1}"></p>
+	<p th:text="${n2}"></p>
+	<p th:text="${n3}"></p>
+	<p th:text="${today}"></p>
+	
+	<p th:text="${#numbers.formatInteger(n1, 10)}"></p>
+	<p th:text="${#numbers.formatInteger(n1, 3, 'COMMA')}"></p>
+	<p th:text="${#numbers.formatDecimal(n2, 3, 'COMMA', 2, 'POINT')}"></p>
+	<p th:text="${#numbers.formatPercent(n3, 0, 2)}"></p>
+	<p th:text="${#dates.format(today, 'yyyy.MM.dd HH:mm')}"></p>
+	
+	<h3>문자열 다루기</h3>
+	<p th:text="${str}"></p>
+	<p th:text="${str == '문자열'}"></p>
+	<p th:text="${str.equals('문자열')}"></p>
+	<p th:text="${str + 'abc'}"></p>
+	<p th:text="|${str}abc|"></p>
+	
+	<p th:text="${#strings.isEmpty(str)}"></p>
+	<p th:text="${#strings.substring(str, 1, 2)}"></p>
+	
+	<p th:text="${values}"></p>
+	<p th:text="${#strings.listSplit(values, ',')}"></p>
+	<p th:text="${#strings.listSplit(values, ',')[0]}"></p>
+	
+	<h3>제어문</h3>
+	
+	<div th:if="${str != null}">
+		<hr>
+		<p th:text="${str}"></p>
+	</div>
+	
+	<div th:if="${str == '문자열'}">
+		<hr>
+		<p th:text="${str}"></p>
+	</div>
+	<div th:unless="${str == '문자열'}">
+		<hr>
+		<p th:text="기타"></p>
+	</div>
+	
+	<!-- num값이 1이면 "aaa", 2이면 "bbb", 그 외의 값이면 "ccc"라고 출력 -->
+	<div th:switch="${num}">
+		<p th:case="1" th:text="aaa"></p>
+		<p th:case="2" th:text="bbb"></p>
+		<p th:case="3" th:text="ccc"></p>
+	</div>	
+	
+	<p></p>
+	<p></p>
+</body>
+</html>
