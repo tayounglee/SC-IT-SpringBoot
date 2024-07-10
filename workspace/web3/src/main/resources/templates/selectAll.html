@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>전체 선택</title>
+<style>
+td, th {
+	border : solid 1px black;
+}
+th{
+	background-color : red;
+}
+</style>
+</head>
+<body>
+	<table>
+        <thead>
+            <tr>
+            	<th>No.</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+        <!-- 반복에 관한 정보는 타임리프의 두번째 객체에 자동적으로 들어가 있다. -->
+            <tr th:each="dto, number : ${dtoList}">
+				<td th:text="${number.count}"></td>
+                <td th:text="${dto.id}"></td>
+                <td th:text="${dto.name}"></td>
+                <td th:text="${dto.age}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -4,9 +4,17 @@
 <head>
 <meta charset="UTF-8">
 <title>thymeleaf2</title>
+<style>
+table, td {
+	border: 1px solid black;
+}
+td {
+	width : 150px;
+}
+</style>
 </head>
 <body>
-	<h1>[ Thymeleaf 문법 2]</h1>
+	<h2>[ Thymeleaf 문법 2]</h2>
 	
 	<h3>리스트와 맵</h3>
 	<div>[[${list}]]</div>
@@ -17,5 +25,90 @@
 	<p th:text="${#lists.contains(list, 'aaaa')}"></p>
 	<p th:text="${#maps.size(map)}"></p>
 	<p th:text="${#maps.containsKey(map, 'price')}"></p>
+	
+	<h3>반복문</h3>
+		
+	<p>반복문을 사용하지 않은 테이블</p>
+	<table>
+		<tr>
+			<td style="width: 100px;">aaa</td>
+		</tr>
+		<tr>
+			<td>111</td>
+			<td>111</td>
+			<td>111</td>
+		</tr>
+		<tr>
+			<td>hhh</td>
+			<td>eee</td>
+			<td>888</td>
+		</tr>
+	</table>
+	<br>
+	<p>반복문을 사용한 테이블</p>
+	<table>
+		<tr th:each="s : ${list}" >
+			<td th:text="${s}"></td>
+			
+		</tr>
+	</table>
+		<!-- 
+		<td th:text="${i.index}"></td>
+			index	현재 반복 인덱스 (0부터 시작)
+			count	현재 반복 인덱스 (1부터 시작)
+			size	총 요소 수
+			current	현재 요소
+			even	현재 반복이 짝수인지 여부 (boolean)
+			odd		현재 반복이 홀수인지 여부 (boolean)
+			first	현재 반복이 첫번째인지 여부 (boolean)
+			last	현재 반복이 마지막인지 여부 (boolean)		
+		 -->
+	<br>
+	
+	<table>
+		<tr>
+			<td th:each="s : ${list}" th:text="${s}"></td>
+		</tr>
+	</table>
+	<br>
+	
+	<p th:each="s : ${list}" th:text="${s}"></p>
+	
+	<th:block th:each="s : ${list}" th:text="${s}"></th:block>
+	
+	<p>객체 반복 출력</p>
+	<div th:each="p : ${personlist}">
+		<p><span>이름</span><span th:text="${p.name}">홍길동</span></p>
+		<p><span>나이</span><span th:text="${p.age}">11</span></p>
+		<p><span>전화</span><span th:text="${p.phone}">1111111111</span></p>
+	</div>
+	
+	<p>리스트와 상관없이 반복</p>
+	<p th:each="n : ${#numbers.sequence(1, 10, 1)}">
+		<span th:text="${n}"></span>
+		<span>, </span>
+	</p>
+	<!-- 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 -->
+	<p>
+		<th:block th:each="n , i : ${#numbers.sequence(1, 10, 1)}">
+			<span th:text="${n}"></span><span th:unless="${i.last}">, </span>
+		</th:block>
+	</p>
+	
+	<p>맵의 모든 값을 출력</p>
+	<table>
+		<tr th:each="item : ${map}">
+			<td>
+				<span th:text="${item.key}"></span>
+			</td>
+			<td>
+				<span th:text="${item.value}"></span>
+			</td>
+		</tr>
+	</table>
+	
+	<p>맵의 특정 값을 읽을 떄</p>
+	<p th:text="${map.product}"></p>
+	
 </body>
 </html>
