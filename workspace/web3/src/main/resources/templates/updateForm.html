@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>수정</title>
+</head>
+<body>
+	<h1>[ 수정 ]</h1>
+	
+	<form action="update" method="post">
+		<input type="hidden" name="id" th:value="${person.id}">
+		이름		<input type="text" name="name" th:value="${person.name}"><br>
+		나이		<input type="number" name="age" th:value="${person.age}"><br>
+				<input type="submit" name="수정"><br>
+			
+	</form>
+
+</body>
+</html>

@@ -12,26 +12,67 @@ th{
 	background-color : red;
 }
 </style>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script>
+	function del(id){
+		if(confirm(id + '를 정말 삭제하나요?')){
+			location.href = '/deleteUser?id=' + id;
+		}
+	}
+	
+	$(document).ready(function(){
+		$('.delButton').click(function(){	// delButton 클래스 클릭
+			//var id = $(this).data('id');	// dto.id를 jquery화 한뒤 
+			//del(id);						// data 메소드를 사용하여 data-id의 속성값을 가져옴
+			
+			//let id1 = $(this).attr('data-id');
+			let id2 = $(this).data('id');
+			
+			location.href = 'deleteUser?id=' + id2;
+			
+			//html(), text(), val(), attr(), css(), addClass(), removeClass()
+		});
+		
+		$('#bt').click(function(){
+			$('#output').html('<b>aaaaaaaaaaa</b>');
+			$('#output').css('background', 'blue');
+			$('#output').css('width', '500px');
+			$('#output').css('height', '100px');
+		});
+	});
+	
+	
+	
+</script>
 </head>
 <body>
 	<table>
-        <thead>
-            <tr>
-            	<th>No.</th>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Age</th>
-            </tr>
-        </thead>
-        <tbody>
+        <tr>
+         	<th>No.</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+        <tr th:if="${dtoList == null or dtoList.isEmpty()}">
+        	<td colspan="4">조회 결과가 없습니다.</td>
+        </tr>
         <!-- 반복에 관한 정보는 타임리프의 두번째 객체에 자동적으로 들어가 있다. -->
-            <tr th:each="dto, number : ${dtoList}">
-				<td th:text="${number.count}"></td>
-                <td th:text="${dto.id}"></td>
-                <td th:text="${dto.name}"></td>
-                <td th:text="${dto.age}"></td>
-            </tr>
-        </tbody>
+        <tr th:each="dto, number : ${dtoList}">
+			<td th:text="${number.count}"></td>
+            <td><a th:href="|view?id=${dto.id}|" th:text="${dto.id}"></a></td>
+    		<td><a th:href=@{/info/{userid}(userid=${dto.id})} th:text="${dto.id}"></a></td>
+    		<td><a th:href="|deleteUser?id=${dto.id}|">삭제</a></td>
+    		<td><a th:href="|javascript:del('${dto.id}')|"><button>삭제</button></a></td>
+    		<!-- jquery로 아래 버튼의 클릭 이벤트 처리하여 삭제 -->
+    		<td><button class="delButton" th:data-id="${dto.id}">삭제</button></td>
+    		
+    		<td><a th:href="|update?id=${dto.id}|">수정</a></td>
+        </tr>
     </table>
+    
+    <div>
+    	출력영역 : <div id="output"></div>
+    	<button id="bt">실행</button>
+    </div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -74,5 +75,25 @@ public class PersonService {
 		}
 		
 		return dtoList;
+	}
+	
+	public boolean deleteUser(String id) {
+		boolean result = personRepository.existsById(id);
+		
+		if(result) {
+			personRepository.deleteById(id);
+		}
+		
+		return result;
+	}
+	
+	public void update(PersonDTO dto) {
+		//DB의 정보를 조회
+		PersonEntity entity = personRepository.findById(dto.getId()).orElseThrow(() -> new EntityNotFoundException());
+		//값 수정
+		entity.setName(dto.getName());
+		entity.setAge(dto.getAge());
+		//저장
+		personRepository.save(entity);
 	}
 }

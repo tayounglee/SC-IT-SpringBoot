@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -94,5 +95,49 @@ public class PersonController {
 		//결과를 화면에 표 형태로 출력한다.
 		model.addAttribute("dtoList", dtoList);
 		return "selectAll";
+	}
+	
+	@GetMapping("view")
+	public String view(@RequestParam("id") String id, Model model) {
+		PersonDTO dto = personService.select(id);
+		
+		model.addAttribute("id", id);
+		model.addAttribute("person", dto);
+		
+		return "select";
+	}
+	
+	@GetMapping("info" + "/{id}")
+	public String info(@PathVariable("id") String id, Model model) {
+		PersonDTO dto = personService.select(id);
+		
+		model.addAttribute("id", id);
+		model.addAttribute("person", dto);
+		
+		return "select";
+	}
+	
+	@GetMapping("deleteUser")
+	public String deleteUser(@RequestParam("id") String id, Model model) {
+		
+		personService.deleteUser(id);
+		
+		return "redirect:selectAll";
+	}
+	
+	@GetMapping("update")
+	public String update(@RequestParam("id") String id, Model model) {
+		PersonDTO dto = personService.select(id);
+		model.addAttribute("person", dto);
+		
+		return "updateForm";
+	}
+	
+	@PostMapping("update")
+	public String update(@ModelAttribute PersonDTO dto) {
+				
+		personService.update(dto);
+		
+		return "redirect:view?id=" + dto.getId();
 	}
 }
