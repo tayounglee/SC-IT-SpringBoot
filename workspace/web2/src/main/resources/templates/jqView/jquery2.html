@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery2</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<style>
+.css1 {
+	background-color : white;
+	font-size: 15px;
+	color : black;
+}
+
+.css2 {
+	background-color : yellow;
+	font-size: 20px;
+	color : red;
+}
+</style>
+<script>
+	$(document).ready(function(){
+		$('#button1').click(button1test);
+		$('#button2').on('click', button2test);
+		$('#button3').on('click', button3test);
+		
+		$('#text1').on('click',function(){
+			alert('text1 클릭함');
+		});
+		
+		$('#text2').on('click',function(){
+			$('#text1').trigger('click');
+		});
+		
+		$('#text3').on('click',function(){
+			setTimeout(function(){
+				$('#text1').trigger('click');
+			}, 3000);
+		});
+		/*
+		$('#img1, #img2').on('mouseenter', function(){
+			$(this).css('width', 100);
+			$(this).css('height', 100);
+		});
+		
+		$('#img1, #img2').on('mouseleave', function(){
+			$(this).css('width', 200);
+			$(this).css('height', 200);
+		});
+		*/
+		$('#img1, #img2').on('click', function(){
+			//클릭할 때 마다 크기가 10px씩 늘어난다.
+			//let w = $(this).css('width'); // "100px"
+			let w = $(this).width();
+				$(this).width(w + 10);
+			let h = $(this).height();
+				$(this).height(h + 10);
+			//let h = $(this).css('height');
+		});
+		
+		$('#input1, #input2').on('focus', function(){
+			$(this).removeClass('css1');
+			$(this).addClass('css2');
+		});
+		
+		$('#input1, #input2').on('blur', function(){
+			$(this).removeClass('css2');
+			$(this).addClass('css1');
+		});
+		
+		$('#input1, #input2').keyup(function() {
+			let n = $(this).val().length;
+			$(this).next('span').text(n);
+		});
+	});
+	
+	function button1test(){
+		alert('나부름?');
+	}
+	
+	function button2test(){
+		$('#button1').off('click', button1test);
+	}
+	
+	function button3test(){
+		$('#button1').on('click', button1test);
+	}
+</script>
+</head>
+<body>
+	<h1>[ ↙ 이사람 자는중 ]</h1>
+	
+	<p>이벤트 처리 - on, off</p>
+	<p><button id="button1">버튼1</button></p>
+	<p><button id="button2">버튼2</button></p>
+	<p><button id="button3">버튼3</button></p>
+	
+	<p id="text1">이벤트 연결된 객체</p>
+	<p id="text2">이벤트 연결된 객체</p>
+	<p id="text3">이벤트 연결된 객체</p>
+	
+	<p>여러 객체의 mouseenter, mouseleave이벤트</p>
+	<p><img id="img1" src="../images/11.png"></p>
+	<p><img id="img2" src="../images/22.png"></p>
+	
+	<p>focus, blur, keyup 이벤트</p>
+	<p><input id="input1" type="text" class="css1">
+		<span>0</span>자</p>
+	<p><input id="input2" type="text" class="css1">
+		<span>0</span>자</p>
+	
+</body>
+</html>

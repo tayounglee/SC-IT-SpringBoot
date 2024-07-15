@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery1</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script>
+	$(document).ready(function(){
+		//전체 선택자
+		$('*').css('color', 'green');
+		//태그 선택자
+		$('p').css('color', 'blue');
+		//id 선택자
+		$('#text1').css('color', 'red');
+		//class 선택자
+		$('.text2').css('color', 'pink');
+		//자식 선택자
+		//$('div > p').css('color', 'red');
+		//자손 선택자
+		$('div p').css('color', 'red');
+		
+		//속성 선택자
+		$('input[type="password"]').css({
+			'color' : 'red',
+			'background-color' : 'yellow'
+		});
+	});
+</script>
+</head>
+<body>
+	<h1>[ jquery - 선택자 ]</h1>
+	<p>p태그 사용</p>
+	<p>p태그 사용</p>
+	<p id="text1">p태그 사용</p>
+	<p class="text2">p태그 사용</p>
+	<p class="text2">p태그 사용</p>
+	
+	<div>
+		<p>이 글자는 빨간색이 됩니다.</p>
+		<span>
+			<p>이 글자는 빨간색이 되지 않습니다.</p>
+		</span>
+	</div>
+	<div>
+		<p>이 글자도 빨간색이 됩니다.</p>
+	</div>
+	
+	<form>
+		<input type="text" value="텍스트필드"><br>
+		<input type="password" value="12345"><br>
+		<button>버튼</button>
+	</form>
+</body>
+</html>
