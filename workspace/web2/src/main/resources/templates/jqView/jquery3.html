@@ -3,8 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <title>jQuery3</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<style>
+table, td, th {
+   border: black, 1px, solid;
+   text-align: center;
+   border-collapse: collapse;
+}
+td {
+   width : 150px;
+}
+</style>
+<script>
+	$(document).ready(function(){
+		$('#bt1').click(test1);
+		$('#bt2').click(test2);
+		$('#bt3').click(test3);
+	});
+
+	function test1(){
+		let ar1 = [10, 20];
+		let ar2 = [];
+		let ar3 = new Array();
+		let ar4 = new Array(5);
+		
+		console.log(ar1);
+		console.log(ar4);
+		console.log(ar1.length);
+		console.log(ar1[0]);
+		
+		ar1.fill(5);
+		console.log(ar1);
+		ar1[0] = 6;
+		console.log(ar1);
+		ar1[3] = 7;
+		console.log(ar1);
+		ar1.push(100);
+		let a = ar1.pop();
+		
+		ar1.splice(2, 1);		//2번요소부터 1개 삭제
+		console.log(ar1);
+		ar1.shift();			//왼쪽으로 쉬프트
+		console.log(ar1);
+		ar1.unshift(100);		//앞에 추가하고 오른쪽으로 쉬프트
+		console.log(ar1);
+		ar1.reverse();
+		console.log(ar1);
+	}
+	
+	function test2(){
+		let ar = [10, 20, 30];
+		
+		$.each(ar, function(i, n) {
+			console.log(i, n);
+		});
+		
+		$(ar).each(function(i, n) {
+			console.log(i, n);
+		});
+		
+		//ar배열의 모든 원소의 값 합계
+		let s = 0;
+		$(ar).each(function(i, n){
+			s += n;
+		}) 
+		console.log("합계=", s);
+	}
+	
+	function test3(){
+		let ob = {num:1, name:'aaa', age:11};
+
+		let objectArray = [
+			{num:1, name:'aaa', age:11},
+			{num:2, name:'bbb', age:22},
+			{num:3, name:'ccc', age:33}
+		];
+		
+		let html = `<table>
+						<tr>
+							<th>이름</th>
+							<th>나이</th>
+						</tr>`;
+		$(objectArray).each(function(i, ob){
+			html += `<tr>
+						<td>${ob.name}</td>
+						<td>${ob.age}</td>
+					</tr>`;
+		});
+		html += `</table>`;
+		
+		$('#output').html(html);
+	}
+
+</script>
 </head>
 <body>
-
+	<h1>[ jquery - 배열] </h1>
+	
+	<p><button id="bt1">배열 사용</button></p>
+	<p><button id="bt2">each() 함수 사용</button></p>
+	<p><button id="bt3">객체 배열 사용</button></p>
+	
+	<div id="output"></div>
 </body>
 </html>

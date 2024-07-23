@@ -3,8 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <title>jQuery4</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<style>
+img {
+	
+}
+</style>
+<script>
+const img = [
+    '/images/aaa.jpg',
+    '/images/bbb.jpg',
+    '/images/ccc.jpg',
+    '/images/ddd.jpg',
+    '/images/eee.jpg'
+];
+
+let i = 0;
+
+$(document).ready(function(){
+	$('#bt1').click(test1);
+	$('#bt2').click(test2);
+	$('#bt3').click(test3);
+	$('#bt4').click(test4);
+	$('#img1').click(test5);
+	$('#img2').click(test6);
+	test7();
+});
+
+function test1(){
+	let s = $('h3').html();
+	console.log(s);
+	
+	$('h3').each(function(i, x){
+		console.log($(x).html());
+	});
+}
+
+function test2(){
+	let s = $('h3').html();
+	console.log(s);
+	
+	$('h3').each(function(i, x){
+		console.log($(x).text());
+	});
+}
+
+function test3(){
+	let s = $('#text1').val();
+	console.log(s);
+}
+
+function test4(){
+	let s = '<p style="color:red;">새로운 내용</p>'
+	$('#text1').val(s);
+	//$('#div1').html(s);
+	$('#div1').text(s);
+}
+
+function test5(){
+	console.log($(this).attr('src'));
+	
+	$(this).attr('src', '/images/aaa.jpg');
+}
+
+function test6(){
+	$('#img2').attr('src', img[i]);
+    i = (i + 1) % img.length;
+}
+
+function test7(){
+	setInterval(function() {
+        $('#img3').attr('src', img[i]);
+        i = (i + 1) % img.length;
+    }, 300);
+}
+</script>
 </head>
 <body>
-
+	<h1>[ jquery - 문서 객체 조작 함수 ]</h1>
+	
+	<p><button id="bt1">html() 함수</button></p>
+	<p><button id="bt2">text() 함수</button></p>
+	<p><button id="bt3">val() 함수</button></p>
+	<p><button id="bt4">내용 변경</button></p>
+	
+	<h3><b>h3</b>태그를 사용한 문자열 1</h3>
+	<h3><i>h3</i>태그를 사용한 문자열 2</h3>
+	<p><input type="text" id = "text1"></p>
+	<div id="div1"></div>
+	
+	<p><img src="/images/bbb.jpg" id="img1"></p>
+	<!--  클릭하면 src속성을 변경해서 다른 이미지로 교체 -->
+	<p><img src="/images/ccc.jpg" id="img2"></p>
+	<!--  클릭할 때마다 다른 이미지로 교체 -->
+	<p><img src="/images/ddd.jpg" id="img3"></p>
+	<!--  일정 시간마다 다른 이미지로 교체 -->
 </body>
 </html>
