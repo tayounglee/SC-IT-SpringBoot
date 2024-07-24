@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $("#check").click(function() {
+    	var id = $("#id").val();
+        var password = $("#pw").val();
+        var cPassword = $("#cpw").val();
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var address = $("#address").val();
+        var errorMsg = "";
+     	
+        if (!id) {
+            errorMsg = "ID를 입력하지 않았습니다.";
+        } else if (id.length < 5) {
+            errorMsg = "ID는 최소 5글자 이상이어야 합니다.";
+        } else if (!password) {
+            errorMsg = "비밀번호를 입력하지 않았습니다.";
+        } else if (password.length < 8) {
+            errorMsg = "비밀번호는 최소 8글자 이상이어야 합니다.";
+        } else if (!cPassword) {
+            errorMsg = "비밀번호 확인란을 입력하지 않았습니다.";
+        } else if (password !== cPassword) {
+            errorMsg = "비밀번호가 일치하지 않습니다. 다시 입력해주세요.";
+        } else if (!name) {
+        	errorMsg = "이름을 입력하지 않았습니다."; 
+        }
+        /*
+        switch (true) {
+        case !name:
+            errorMsg = "이름을 입력하지 않았습니다.";
+            break;
+        case !email:
+            errorMsg = "이메일을 입력하지 않았습니다.";
+            break;
+        case !phone:
+            errorMsg = "전화번호를 입력하지 않았습니다.";
+            break;
+        case !address:
+            errorMsg = "주소를 입력하지 않았습니다.";
+            break;
+    	}
+	*/
+    	if (errorMsg) {
+	        event.preventDefault();
+        	alert(errorMsg);
+    	}
+    });
+});
+
+</script>
+</head>
+<body>
+	<h1>[ 회원가입 ]</h1>
+	<form action="join" method="post">
+		<table>
+			<tr>
+				<th>ID</th>
+				<td><input type="text" name="memberId" id="id" placeholder="ID중복확인 이용"></td>
+				<td><input type="submit" value="ID중복확인"></td>
+			</tr>
+			<tr>
+				<th rowspan="2">비밀번호</th>
+				<td><input type="password" name="memberPassword" id="pw" placeholder="비밀번호 입력"></td>
+			</tr>
+			<tr>
+				<td><input type="password" id="cpw" placeholder="비밀번호 다시 입력"></td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td><input type="text" name="memberName" id="name" placeholder="이름 입력"></td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td><input type="text" name="email" id="email" placeholder="이메일 입력"></td>
+			</tr>
+			<tr>
+				<th>전화번호</th>
+				<td><input type="text" name="phone" id="phone" placeholder="전화번호 입력"></td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td><input type="text" name="address" id="address" placeholder="주소 입력"></td>
+			</tr>
+		</table>
+		
+		<input type="submit" value="가입" id="check">
+		<input type="reset" value="다시 쓰기">
+	</form>
+</body>
+</html>
