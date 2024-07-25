@@ -29,4 +29,17 @@ public class MemberService {
 		
 		repo.save(entity);
 	}
+	
+	public boolean findId(String searchId) {
+		/*
+		if(repo.findById(searchId).isPresent()) {
+			return false;
+		}
+		else {
+			return true;
+		}
+		*/
+		
+		return !repo.existsById(searchId);
+	}
 }

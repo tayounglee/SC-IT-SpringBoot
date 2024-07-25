@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ID중복확인</title>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script>
+
+$(document).ready(function() {
+	$('#inputButton').click(function(){
+		let id = $(this).data('id');
+		//let id = $(this).attr('data-id');
+		$(opener.document).find('#id').val(id);
+		//opener.document.getElementById('id').value = id;
+		window.close();
+	});
+});
+
+
+</script>
+</head>
+<body>
+<header>
+	<h1>[ ID중복확인 ]</h1>
+</header>
+	<form action="idCheck" method="post" id="searchForm">
+		검색할 ID <input type="text" name="searchId" id="searchId">
+				<input type="submit" value="검색">
+	</form>
+		
+	<div th:if="${searchId != null}">
+		<div th:if="${result}">
+			<p><span th:text="${searchId}"></span>
+				<span> : 사용할 수 있는 ID입니다.</span>
+				<span><input type="button" value="ID사용하기" id="inputButton" th:data-id="${searchId}"></span></p>
+		</div>
+		
+		<div th:if="${not result}">
+			<p><span th:text="${searchId}"></span><span> : 이미 사용중인 ID입니다.</span></p>
+		</div>
+	</div>
+</body>
+</html>
