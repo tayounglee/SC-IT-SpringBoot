@@ -1,5 +1,6 @@
 package net.datasa.web5.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.datasa.web5.domain.dto.MemberDTO;
+import net.datasa.web5.security.AuthenticatedUser;
 import net.datasa.web5.service.MemberService;
 
 /**
@@ -59,5 +61,32 @@ public class MemberController {
 		model.addAttribute("searchId", searchId);
 		model.addAttribute("result", result);
 		return "memberView/idCheck";
-	}	
+	}
+	
+	@GetMapping("loginForm")
+	public String login() {
+		
+		return "memberView/loginForm";
+	}
+	
+	@GetMapping("info")
+	public String info(@AuthenticationPrincipal AuthenticatedUser user, Model model) {
+		//현재 사용자의 아이디를 서비스로 전달하여 해당 사용자 정보를 MemberDTO객체로 리턴받는다.
+		MemberDTO dto = service.getMember(user.getUsername());
+		//MemberDTO객체를 모델에 저장하고 HTML폼으로 이동
+		model.addAttribute("member", dto);
+		return "memberView/infoForm";
+	}
+	
+	@PostMapping("info")
+	public String info(@AuthenticationPrincipal AuthenticatedUser user
+			, @ModelAttribute MemberDTO memberDTO) {
+		//수정폼에서 전달한 값들을 MemberDTO로 받는다.
+		//현재 로그인한 사용자의 아이디를 MemberDTO객체에 추가한다.
+		memberDTO.setMemberId(user.getUsername());
+		//MemberDTO객체를 서비스로 전달하여 DB를 수정한다.
+		service.update(memberDTO);
+		
+		return "redirect:/";
+	}
 }

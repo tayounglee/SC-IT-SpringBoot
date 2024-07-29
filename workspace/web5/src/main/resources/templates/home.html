@@ -6,12 +6,17 @@
 </head>
 <body>
 	<h1>[ 메인 화면 ]</h1>
+	<p sec:authorize="isAuthenticated()"><span th:text="${#authentication.name}"></span>님 환영합니다.</p>
 	
-	<p><a href="/member/joinForm">회원가입</a></p>
-	<p><a href="/member/loginForm">로그인</a></p>
-	<p><a href="/member/logout">로그아웃</a></p>
-	<p><a href="/member/info">개인정보 수정</a></p>
-	<p><a href="/board">게시판</a></p>
+	<div sec:authorize="not isAuthenticated()">
+		<p><a href="/member/joinForm">회원가입</a></p>
+		<p><a href="/member/loginForm">로그인</a></p>
+	</div>
 	
+	<div sec:authorize="isAuthenticated()">
+		<p><a href="/member/logout">로그아웃</a></p>
+		<p><a href="/member/info">개인정보 수정</a></p>
+		<p><a href="/board">게시판</a></p>
+	</div>
 </body>
 </html>
