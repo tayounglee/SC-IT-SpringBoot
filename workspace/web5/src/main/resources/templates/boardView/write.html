@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>글쓰기</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<style>
+table {
+	width : 400px;
+	border : 1px solid black;
+}
+
+#title {
+	width : 250px;
+}
+
+#contents {
+	height : 200px;
+	width : 250px;
+}
+
+th {
+	background-color : pink;
+	width : 80px;
+}
+
+#submit {
+	margin-left : 200px;
+}
+</style>
+<script>
+   
+</script>
+</head>
+<body>
+	<h1>[ 글쓰기 ]</h1>
+	
+	<form action="write" method="post" id="check">
+		<table>
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="title" id="title"></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><input type="text" name="contents" id="contents"></td>
+			</tr>
+			<tr>
+				<th>파일첨부</th>
+				<td><input type="button" name="select" id="select" value="파일 선택"><span> 선택된 파일 없음</span></td>
+			</tr>
+		</table>
+		
+		<input type="submit" value="저장" id="submit">
+	</form>
+	
+	
+</body>
+</html>

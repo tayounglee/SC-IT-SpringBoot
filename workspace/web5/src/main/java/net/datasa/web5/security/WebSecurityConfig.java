@@ -21,6 +21,7 @@ public class WebSecurityConfig {
             ,"/member/joinForm"
             ,"/member/join"
             ,"/member/idCheck"
+            ,"/board/list"
     };
 
     @Bean
