@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>글</title>
+</head>
+<body>
+	<h1>[ 게시글 읽기 ]</h1>
+	<p><pre th:text="${board.contents}"></pre></p>
+	
+	<!--  글 수정/삭제 (본인글일 때만 보임) -->
+	<div th:if="${#authentication.name == board.memberId}">
+		<button>수정</button>
+		<button>삭제</button>
+	</div>
+	<!--  리플 작성 폼 (로그인했을 때만 보임) -->
+	
+	<div sec:authorize="isAuthenticated()">
+		<form action="/board/reply" method="post">
+			<input type="hidden" name="boardNum" th:value="${board.boardNum}">
+			<input type="text" name="contents" placeholder="댓글을 작성하세요" required>
+			<button type="submit">저장</button>
+		</form>
+	</div>
+	<!--  리플 목록 출력 (다 보임) -->
+	<p th:each="reply : ${board.replyList}">
+		<span th:text="${reply.memberName}"></span>
+		<span th:text="${reply.contents}"></span>
+	</p>
+	
+	
+</body>
+</html>
