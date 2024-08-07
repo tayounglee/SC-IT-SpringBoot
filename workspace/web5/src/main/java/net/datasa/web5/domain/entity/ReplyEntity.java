@@ -1,56 +1,51 @@
 package net.datasa.web5.domain.entity;
 
-import java.time.LocalDateTime;
-
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.time.LocalDateTime;
 
+/**
+ * 리플 정보 엔티티
+ */
 @Builder
 @Getter
 @Setter
+//BoardEntity와 ReplyEntity의 순환참조 문제로 toString() 호출시 오류일때 해당 필드를 제외
 @ToString(exclude = "board")
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name="web5_reply")
 @EntityListeners(AuditingEntityListener.class)
+@Entity
+@Table(name = "web5_reply")
 public class ReplyEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="reply_num")
-	int replyNum;
-	 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="member_id", referencedColumnName = "member_id")
-	MemberEntity member;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="board_num", referencedColumnName = "board_num")
-	BoardEntity board;
-	
-	//리플 내용
-	@Column(name="contents", nullable = false, length = 2000)
-	String contents;
-	
-	@CreatedDate
-	@Column(name = "create_date", columnDefinition = "timestamp default current_timestamp", updatable = false)
-	LocalDateTime createDate;
-	
+    //리플 테이블의 기본키
+    //기본키 생성 전략 : 자동 증가(auto-increment) 값으로 설정
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "reply_num")
+    private Integer replyNum; 
+
+    //작성자 정보 (외래키)
+    //다대일 관계. 리플 여러개가 회원정보 하나를 참조한다.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
+    private MemberEntity member;
+
+    //리플 내용
+    @Column(name = "contents", nullable = false, length = 2000)
+    private String contents;
+
+    //작성 시간
+    @CreatedDate
+    @Column(name = "create_date", columnDefinition = "timestamp default current_timestamp")
+    private LocalDateTime createDate;
+
+    //게시글 정보 (외래키)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_num")
+    private BoardEntity board;
+
 }

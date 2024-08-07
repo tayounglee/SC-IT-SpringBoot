@@ -103,11 +103,11 @@ td.replyid {
 	font-weight: bold;
 }
 td.replytext {
-	width: 500px;
+	width: 470px;
 	border-style: none;
 }
 td.replydate {
-	width: 70px;
+	width: 100px;
 	border-style: none;
 	font-size: 10pt;
 	text-align: center;

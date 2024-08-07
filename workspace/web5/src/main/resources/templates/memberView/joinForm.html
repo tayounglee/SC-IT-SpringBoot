@@ -1,107 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<script src="/js/jquery-3.7.1.min.js"></script>
-<script>
+	<meta charset="UTF-8">
+	<title>회원가입</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script>
+		$(document).ready(function() {
+			$('#joinform').submit(validation);
+			$('#openButton').click(idWindowOpen);
+			$('#memberId').click(idWindowOpen);
+		});
 
-$(document).ready(function() {
-	$("#check").submit(validation);
-	$("#button").click(winOpen);
-});
+		function validation() {
 
-function winOpen(){
-	window.open('idCheck','ID중복확인','left=500, top=200, width=500, height=400, location=no');
-}
+			let id = $('#memberId').val();
+			let pw = $('#memberPassword').val();
+			let pw2 = $('#memberPassword2').val();
+			let name = $('#memberName').val();
 
-function validation(){
-	var id = $("#id").val();
-    var password = $("#pw").val();
-    var cPassword = $("#cpw").val();
-    var name = $("#name").val();
-    /*
-    var email = $("#email").val();
-    var phone = $("#phone").val();
-    var address = $("#address").val();
-    */
-    var errorMsg = "";
- 	
-    if (!id) {
-        errorMsg = "ID를 입력하지 않았습니다.";
-    } else if (id.length < 5) {
-        errorMsg = "ID는 최소 5글자 이상이어야 합니다.";
-    } else if (!password) {
-        errorMsg = "비밀번호를 입력하지 않았습니다.";
-    } else if (password.length < 8) {
-        errorMsg = "비밀번호는 최소 8글자 이상이어야 합니다.";
-    } else if (!cPassword) {
-        errorMsg = "비밀번호 확인란을 입력하지 않았습니다.";
-    } else if (password !== cPassword) {
-        errorMsg = "비밀번호가 일치하지 않습니다. 다시 입력해주세요.";
-    } else if (!name) {
-    	errorMsg = "이름을 입력하지 않았습니다."; 
-    }
-   	
-    /*
-    switch (true) {
-    case !name:
-        errorMsg = "이름을 입력하지 않았습니다.";
-        break;
-    case !email:
-        errorMsg = "이메일을 입력하지 않았습니다.";
-        break;
-    case !phone:
-        errorMsg = "전화번호를 입력하지 않았습니다.";
-        break;
-    case !address:
-        errorMsg = "주소를 입력하지 않았습니다.";
-        break;
-	}
-*/
-	if (errorMsg) {
-		alert(errorMsg);
-		return false;
-	}
-}
-</script>
+			if (id.length < 3 || id.length > 10) {
+				alert("ID는 3~10자로 입력하세요.");
+				return false;
+			}
+			if (pw.length < 3 || pw.length > 10) {
+				alert("비밀번호는 3~10자로 입력하세요.");
+				return false;
+			}
+			if (pw != pw2) {
+				alert("비밀번호를 정확하게 입력하세요.");
+				return false;
+			}
+			if (name == '') {
+				alert("이름을 입력하세요.");
+				return false;
+			}
+			return true;
+		}
+
+		//ID 중복 확인창 열기
+		function idWindowOpen() {
+			var w = window.open('idCheck', 'idwin', 'top=200,left=500,width=400,height=300');
+		}
+
+	</script>
 </head>
 <body>
+	<header>
 	<h1>[ 회원가입 ]</h1>
-	<form action="join" method="post" id="check">
-		<table>
-			<tr>
-				<th>ID</th>
-				<td><input type="text" name="memberId" id="id" placeholder="ID중복확인 이용" readonly="readonly"></td>
-				<td><input type="button" id="button" value="ID중복확인"></td>
-			</tr>
-			<tr>
-				<th rowspan="2">비밀번호</th>
-				<td><input type="password" name="memberPassword" id="pw" placeholder="비밀번호 입력"></td>
-			</tr>
-			<tr>
-				<td><input type="password" id="cpw" placeholder="비밀번호 다시 입력"></td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td><input type="text" name="memberName" id="name" placeholder="이름 입력"></td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td><input type="text" name="email" id="email" placeholder="이메일 입력"></td>
-			</tr>
-			<tr>
-				<th>전화번호</th>
-				<td><input type="text" name="phone" id="phone" placeholder="전화번호 입력"></td>
-			</tr>
-			<tr>
-				<th>주소</th>
-				<td><input type="text" name="address" id="address" placeholder="주소 입력"></td>
-			</tr>
-		</table>
-		
-		<input type="submit" value="가입">
-		<input type="reset" value="다시 쓰기">
-	</form>
+	</header>
+	
+	<section>
+	<form id="joinform" th:action="@{/member/join}"  method="post">
+	<table>
+		<tr>
+			<th>ID</th>
+			<td>
+				<input type="text" name="memberId" id="memberId" maxlength="10" placeholder="ID중복확인 이용" readonly="readonly">
+				<input type="button" id="openButton" value="ID중복확인">
+			</td>
+		</tr>
+		<tr>
+			<th>비밀번호</th>
+			<td><input type="password" name="memberPassword" id="memberPassword" placeholder="비밀번호 입력"><br>
+			<input type="password" id="memberPassword2" placeholder="비밀번호 다시 입력"></td>
+		</tr>
+		<tr>
+			<th>이름</th>
+			<td><input type="text" name="memberName" id="memberName" placeholder="이름 입력"></td>
+		</tr>
+		<tr>
+			<th>이메일</th>
+			<td><input type="text" name="email" id="email" placeholder="이메일 입력"></td>
+		</tr>
+		<tr>
+			<th>전화번호</th>
+			<td><input type="text" name="phone" placeholder="전화번호 입력"></td>
+		</tr>
+		<tr>
+			<th>주소</th>
+			<td><input type="text" name="address" placeholder="주소 입력" style="width:300px;"></td>
+		</tr>
+	</table>
+	<br>
+	
+		<button type="submit">가입</button>
+		<button type="reset">다시 쓰기</button>
+	
+	</form>	
+	</section>
+	
 </body>
 </html>

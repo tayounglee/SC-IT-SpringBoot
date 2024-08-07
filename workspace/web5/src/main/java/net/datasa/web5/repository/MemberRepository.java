@@ -1,11 +1,14 @@
 package net.datasa.web5.repository;
 
+import net.datasa.web5.domain.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import net.datasa.web5.domain.entity.MemberEntity;
+/**
+ * 회원 정보 Repository
+ */
 
 @Repository
-public interface MemberRepository extends JpaRepository<MemberEntity, String>{
+public interface MemberRepository extends JpaRepository<MemberEntity, String> {
 
 }
