@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax1</title>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script>
+function test1(){
+	alert('test1() 실행');
+	
+	//비동기적으로 서버 요청 보내기 (http://localhost:8888/ajaxtest1)
+	$.ajax({
+		url: 'ajaxtest1',
+		type: 'get',
+		success: function() { alert('성공');},
+		error: function() { alert('실패'); }
+	});
+	
+	alert('test1() 끝');
+}
+</script>
+</head>
+<body>
+	<h1>[ Ajax 테스트 1 ]</h1>
+	
+	<p><a href="javascript:test1()">서버로 요청 보내기</a></p>
+	
+</body>
+</html>
