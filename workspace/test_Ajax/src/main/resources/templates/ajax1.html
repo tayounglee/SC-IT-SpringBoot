@@ -18,12 +18,86 @@ function test1(){
 	
 	alert('test1() 끝');
 }
+
+function test2(){
+	$.ajax({
+		url: 'ajaxtest2',
+		type: 'post',
+		data : {str: '클라이언트에서 보냄'},
+		success: function() { alert('성공');},
+		error: function() { alert('실패'); }
+	});
+}
+
+function test3(){
+	$.ajax({
+		url: 'ajaxtest3',
+		type: 'get',
+		dataType: 'text',
+		success: function(a){
+			alert(a);
+		},
+		error: function() { alert('실패'); }
+	});
+}
+
+function test4(){
+	$.ajax({
+		url: 'ajaxtest4',
+		type: 'post',
+		data : {num1: $('#num1').val(),
+				num2: $('#num2').val()},
+		dataType: 'text',
+		success: function(b){
+			$('#num3').val(b);
+		},
+		error: function() { alert('실패'); }
+	});
+}
+
+function test5(){
+	$.ajax({
+		url: 'ajaxtest5',
+		type: 'post',
+		data : {num1: $('#num1').val(),
+				num2: $('#num2').val(),
+				oper: $('#oper').val()},
+		dataType: 'text',
+		success: function(b){
+			$('#num3').val(b);
+		},
+		error: function(c) {
+			//alert('계산실패');
+			//alert(JSON.stringify(c));
+			alert(c.responseText);
+		}
+	});
+}
 </script>
 </head>
 <body>
 	<h1>[ Ajax 테스트 1 ]</h1>
 	
-	<p><a href="javascript:test1()">서버로 요청 보내기</a></p>
-	
+	<p><a href="javascript:test1()">서버로 Ajax 요청 보내기</a></p>
+	<p><a href="javascript:test2()">서버로 문자열 보내기</a></p>
+	<p><a href="javascript:test3()">서버에서 문자열 받기</a></p>
+	<br>
+	<p><a href="javascript:test4()">값 전달하여 계산하기 1</a></p>
+	<p><a href="javascript:test5()">값 전달하여 계산하기 2</a></p>
+	<p>
+		<input type="text" id="num1">
+		<select id="oper">
+			<option value="+">+</option>
+			<option value="-">-</option>
+			<option value="*">*</option>
+			<option value="/">/</option>
+			<option value=""></option>
+		</select>
+		<input type="text" id="num2">
+		<select id="oper">
+			<option value="=">=</option>
+		</select>
+		<input type="text" id="num3">
+	</p>
 </body>
 </html>

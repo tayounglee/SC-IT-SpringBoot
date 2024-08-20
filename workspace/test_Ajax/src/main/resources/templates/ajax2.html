@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax1</title>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('#formButton1').click(function(){
+		let inputData = {
+			name : $('#name').val(),
+			age : $('#age').val(),
+			phone : $('#phone').val()
+		};
+		
+		$.ajax({
+			url : 'input1',
+			type: 'post',
+			data: inputData,
+			success: function(){
+				alert('저장되었습니다.')
+			},
+			error : function(e) {
+				alert('저장 실패');
+			}
+		});
+	}); //formButton1 클릭 이벤트
+	
+	$('#formButton2').click(function(){
+		$.ajax({
+			url : 'input1',
+			type: 'post',
+			data: $('#form').serialize(),
+			success: function(){
+				alert('저장되었습니다.')
+			},
+			error : function(e) {
+				alert('저장 실패');
+			}
+		});
+	}); //formButton2 클릭 이벤트
+	
+	$('#button3').click(function(){
+		$.ajax({
+			url : 'getObject',
+			type: 'get',
+			dataType: 'text',
+			success: function(ob){
+				//$('#objectOutput').html(ob);
+				let txt = `
+					<table>
+						<tr>
+							<th>이름</th>
+							<td>${ob.name}</td>
+						</tr>
+					</table>
+				`;
+				//$('#objectOutput').html(txt);
+				$('#objectOutput').empty();
+				$('#objectOutput').append(txt);
+			},
+			error : function(e) {
+				alert('저장 실패');
+			}
+		});
+	}); //button3 클릭 이벤트
+	
+	$('#button4').click(function(){
+		$.ajax({
+			url : 'getList',
+			type: 'get',
+			dataType: 'json',
+			success: function(list){
+				let txt = `
+					<table>
+						<tr>
+							<th>번호</th>
+							<th>이름</th>
+							<th>나이</th>
+							<th>전화</th>
+						</tr>`;
+				$(list).each(function(idx, ob){
+					txt += `<tr>
+							<td>${idx}</td>
+							<td>${ob.name}</td>
+							<td>${ob.age}</td>
+							<td>${ob.phone}</td>
+						</tr>`;
+				});
+				txt += `</table>`;
+				$('#listOutput').html(txt);
+			},
+			error : function(e) {
+				alert('저장 실패');
+			}
+		});
+	}); //button4 클릭 이벤트
+	
+	$('#button5').click(function(){
+		let ar = ['aaa', 'bbbb', 'cccc'];
+		
+		$.ajax({
+			url : 'sendArray',
+			type: 'post',
+			data: {ar : ar},
+			success: function(ar){
+				alert('저장되었습니다.')
+			},
+			error : function(e) {
+				alert('저장 실패');
+			}
+		});
+	}); //button5 클릭 이벤트
+	
+	$('#button6').click(function(){
+		let ar = [{name:'김', age:10, phone:'111'},
+				  {name:'이', age:20, phone:'222'}];
+		
+		$.ajax({
+			url : 'sendObjectArray',
+			type: 'post',
+			data: {ar : JSON.stringify(ar)},
+			success: function(){
+				alert('저장되었습니다.')
+			},
+			error : function(e) {
+				alert(JSON.stringify(e));
+			}
+		});
+	}); //button6 클릭 이벤트
+});
+</script>
+</head>
+<body>
+	<h1>[ Ajax 테스트 2 ]</h1>
+	
+	<p>1. 서버로 객체 보내기</p>
+	<form>
+		이름 <input type="text" id="name"><br>
+		나이 <input type="number" id="age" value="0"><br>
+		전화 <input type="text" id="phone"><br>
+		<input type="button" id="formButton1" value="저장"><br>
+	</form>
+	
+	<p>2. 서버로 객체 보내기</p>
+	<form id="form">
+		이름 <input type="text" name="name"><br>
+		나이 <input type="number" name="age" value="0"><br>
+		전화 <input type="text" name="phone"><br>
+		<input type="button" id="formButton2" value="저장"><br>
+	</form>
+	
+	<p>3. 서버에서 객체 받아오기</p>
+	<p><button type="button" id="button3">받기</button><br>
+	<div id="objectOutput"></div>
+	
+	<p>4. 서버에서 객체배열 받아오기</p>
+	<p><button type="button" id="button4">받기</button><br>
+	<div id="listOutput"></div>
+	
+	<p>5. 서버로 배열 보내기</p>
+	<p><button type="button" id="button5">보내기</button><br>
+	
+	<p>6. 서버로 객체배열 보내기</p>
+	<p><button type="button" id="button6">보내기</button><br>
+</body>
+</html>
